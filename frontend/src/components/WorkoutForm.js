@@ -7,6 +7,7 @@ const WorkoutForm = () => {
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [err, setErr] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleTitleChange = ({ target }) => {
     const { value } = target;
@@ -39,6 +40,7 @@ const WorkoutForm = () => {
 
     if (!response.ok) {
       setErr(json.error);
+      setEmptyFields(json.emptyFields);
     }
 
     if (response.ok) {
@@ -48,6 +50,7 @@ const WorkoutForm = () => {
       setErr(null);
       console.log("new workout added", json);
       dispatch({ type: "CREATE_WORKOUT", payload: json });
+      setEmptyFields([]);
     }
   };
 
@@ -62,6 +65,7 @@ const WorkoutForm = () => {
         name="title"
         value={title}
         onChange={handleTitleChange}
+        className={emptyFields.includes("title") ? "error" : ""}
       />
       <br />
 
@@ -73,10 +77,11 @@ const WorkoutForm = () => {
         name="load"
         value={load}
         onChange={handleLoadChange}
+        className={emptyFields.includes("load") ? "error" : ""}
       />
       <br />
 
-      <label for="load">Reps:</label>
+      <label for="reps">Reps:</label>
       <br />
       <input
         type="number"
@@ -84,6 +89,7 @@ const WorkoutForm = () => {
         name="reps"
         value={reps}
         onChange={handleRepsChange}
+        className={emptyFields.includes("reps") ? "error" : ""}
       />
       <br />
 
