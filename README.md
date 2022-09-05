@@ -21,6 +21,7 @@ App that allows user to create their own workout routines.
 # Technologies
 
 - React
+- JavaScript
 - HTML
 - CSS
 - Node
